@@ -31,7 +31,3 @@
 .text-sm .wrapper .content-wrapper {
     min-height: calc(100vh - calc(2.95rem + 1px) - calc(2.95rem + 1px));
 }
-
-.font-size-5 {
-    font-size: 1.25rem!important;
-}
