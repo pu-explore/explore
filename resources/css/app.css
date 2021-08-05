@@ -16,10 +16,22 @@
     right: 0;
 }
 
+.top-0 {
+    top: 0;
+}
+
 .z-40 {
     z-index: 40;
 }
 
 .z-50 {
     z-index: 50;
+}
+
+.text-sm .wrapper .content-wrapper {
+    min-height: calc(100vh - calc(2.95rem + 1px) - calc(2.95rem + 1px));
+}
+
+.font-size-5 {
+    font-size: 1.25rem!important;
 }

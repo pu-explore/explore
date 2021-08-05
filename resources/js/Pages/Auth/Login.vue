@@ -1,13 +1,13 @@
 <template>
     <div class="login-page">
-        <nav class="main-header navbar navbar-expand ml-0 h-auto border-bottom-0 w-100 position-absolute" style="top: 0;">
+        <nav class="main-header navbar navbar-expand ml-0 h-auto border-bottom-0 w-100 position-absolute top-0">
             <ul class="navbar-nav ml-auto">
                 <nav-dropdown align="right">
                     <template #trigger>
                         <i class="fa fa-language fa-fw fa-2x" aria-hidden="true"></i>
                     </template>
                     <template #content>
-                        <a href="#" class="dropdown-item" v-for="(object, lang) in $page.props.lang" @click="changeLang(lang)">
+                        <a href="#" class="dropdown-item" v-for="(object, lang) in $page.props.languages" @click="changeLang(lang)">
                             <i class="fa fa-tags fa-fw mr-2"></i>{{ object.language }}
                         </a>
                     </template>
@@ -15,39 +15,69 @@
             </ul>
         </nav>
         <div class="login-box">
-            <div :class="'card card-outline card-'+$page.props.admin.color">
+            <div class="card card-outline" :class="cardColor">
                 <div class="card-header text-center">
                     <a :href="this.route('home')" class="h1" v-html="$page.props.admin.name"></a>
                 </div>
                 <div class="card-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">{{ $t('login_msg') }}</p>
 
-                    <form  @submit.prevent="submit">
+                    <form @submit.prevent="submit">
+                        <div class="form-group row mx-0">
+                            <label class="col-form-label col-sm-2 px-0" for="inputError">Input</label>
+                            <div class="col-sm-10 px-0">
+                                <div class="input-group is-invalid">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" id="inputError" class="form-control is-invalid" placeholder="Enter ...">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-envelope fa-fw"></i></span>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">Please provide a valid city.</div>
+                            </div>
+                        </div>
+
                         <div class="input-group mb-3">
-                            <input type="text" name="username" class="form-control" :placeholder="$t('username')" v-model="form.username" required autofocus autocomplete="username">
+                            <input type="text"
+                                   id="username"
+                                   name="username"
+                                   class="form-control"
+                                   :placeholder="$t('username')"
+                                   v-model="form.username"
+                                   required autofocus autocomplete="username">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope fa-fw"></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="input-group mb-3">
-                            <input type="password" name="password" class="form-control" :placeholder="$t('password')" v-model="form.password" required autocomplete="current-password">
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control"
+                                   :placeholder="$t('password')"
+                                   v-model="form.password"
+                                   required autocomplete="current-password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock fa-fw"></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-8">
-                                <div :class="'icheck-'+$page.props.admin.color">
+                                <div :class="icheckColor">
                                     <input type="checkbox" id="remember" name="remember" v-model="form.remember">
-                                    <label for="remember">Remember Me</label>
+                                    <label for="remember">{{ $t('remember_me') }}</label>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <button type="submit" :class="'btn btn-block btn-'+$page.props.admin.color">Sign In</button>
+                                <button type="submit" class="btn btn-block" :class="btnColor">{{ $t('sign_in') }}</button>
                             </div>
                         </div>
                     </form>
@@ -140,7 +170,17 @@ export default {
     created() {
 
     },
-
+    computed: {
+        btnColor() {
+            return 'btn-'+this.$page.props.admin.color;
+        },
+        icheckColor() {
+            return 'icheck-'+this.$page.props.admin.color;
+        },
+        cardColor() {
+            return 'card-'+this.$page.props.admin.color;
+        },
+    },
     methods: {
         submit() {
             this.form.post(this.route('login'), {
