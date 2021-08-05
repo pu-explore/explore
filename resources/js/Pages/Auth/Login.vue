@@ -2,16 +2,16 @@
     <div class="login-page">
         <nav class="main-header navbar navbar-expand ml-0 h-auto border-bottom-0 w-100 position-absolute top-0">
             <ul class="navbar-nav ml-auto">
-                <nav-dropdown align="right">
+                <breeze-nav-dropdown align="right">
                     <template #trigger>
-                        <i class="fa fa-language fa-fw fa-2x" aria-hidden="true"></i>
+                        {{ $t('language') }}
                     </template>
                     <template #content>
                         <a href="#" class="dropdown-item" v-for="(object, lang) in $page.props.languages" @click="changeLang(lang)">
-                            <i class="fa fa-tags fa-fw mr-2"></i>{{ object.language }}
+                            {{ object.language }}
                         </a>
                     </template>
-                </nav-dropdown>
+                </breeze-nav-dropdown>
             </ul>
         </nav>
         <div class="login-box">
@@ -21,63 +21,26 @@
                 </div>
                 <div class="card-body">
                     <p class="login-box-msg">{{ $t('login_msg') }}</p>
-
                     <form @submit.prevent="submit">
-                        <div class="form-group row mx-0">
-                            <label class="col-form-label col-sm-2 px-0" for="inputError">Input</label>
-                            <div class="col-sm-10 px-0">
-                                <div class="input-group is-invalid">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">@</span>
-                                    </div>
-                                    <input type="text" id="inputError" class="form-control is-invalid" placeholder="Enter ...">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope fa-fw"></i></span>
-                                    </div>
-                                </div>
-                                <div class="invalid-feedback">Please provide a valid city.</div>
-                            </div>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="text"
-                                   id="username"
+                        <breeze-input v-model="form.username"
                                    name="username"
-                                   class="form-control"
                                    :placeholder="$t('username')"
-                                   v-model="form.username"
+                                   :append="{icon: 'fas fa-user'}"
                                    required autofocus autocomplete="username">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope fa-fw"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="password"
-                                   id="password"
+                        </breeze-input>
+                        <breeze-input v-model="form.password"
+                                   type="password"
                                    name="password"
-                                   class="form-control"
                                    :placeholder="$t('password')"
-                                   v-model="form.password"
+                                   :append="{icon: 'fas fa-lock'}"
                                    required autocomplete="current-password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock fa-fw"></span>
-                                </div>
-                            </div>
-                        </div>
-
+                        </breeze-input>
                         <div class="row">
                             <div class="col-8">
-                                <div :class="icheckColor">
-                                    <input type="checkbox" id="remember" name="remember" v-model="form.remember">
-                                    <label for="remember">{{ $t('remember_me') }}</label>
-                                </div>
+                                <breeze-checkbox name="remember" :label="$t('remember_me')" v-model:checked="form.remember" />
                             </div>
                             <div class="col-4">
-                                <button type="submit" class="btn btn-block" :class="btnColor">{{ $t('sign_in') }}</button>
+                                <breeze-button>{{ $t('sign_in') }}</breeze-button>
                             </div>
                         </div>
                     </form>
@@ -85,66 +48,21 @@
             </div>
         </div>
     </div>
-<!--
-    <breeze-validation-errors class="mb-4"/>
-
-    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-        {{ status }}
-    </div>
-
-    <form @submit.prevent="submit">
-        <div>
-            <breeze-label for="username" value="用户名"/>
-            <breeze-input id="username" type="text" class="mt-1 block w-full" v-model="form.username" required autofocus
-                          autocomplete="username"/>
-        </div>
-
-        <div class="mt-4">
-            <breeze-label for="password" value="Password"/>
-            <breeze-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
-                          autocomplete="current-password"/>
-        </div>
-
-        <div class="block mt-4">
-            <label class="flex items-center">
-                <breeze-checkbox name="remember" v-model:checked="form.remember"/>
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <inertia-link v-if="canResetPassword" :href="route('password.request')"
-                          class="underline text-sm text-gray-600 hover:text-gray-900">
-                Forgot your password?
-            </inertia-link>
-
-            <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Log in
-            </breeze-button>
-        </div>
-    </form>
-    -->
 </template>
 
 <script>
-import NavDropdown from "@/Components/NavDropdown";
-// import BreezeButton from '@/Components/Button'
-// import BreezeGuestLayout from "@/Layouts/Guest"
-// import BreezeInput from '@/Components/Input'
-// import BreezeCheckbox from '@/Components/Checkbox'
-// import BreezeLabel from '@/Components/Label'
-// import BreezeValidationErrors from '@/Components/ValidationErrors'
+import BreezeNavDropdown from "@/Components/NavDropdown";
+import BreezeInput from "@/Components/Input";
+import BreezeCheckbox from '@/Components/Checkbox'
+import BreezeButton from '@/Components/Button'
 
 export default {
-    // layout: BreezeGuestLayout,
-
+    name: 'Login',
     components: {
-        NavDropdown,
-        // BreezeButton,
-        // BreezeInput,
-        // BreezeCheckbox,
-        // BreezeLabel,
-        // BreezeValidationErrors
+        BreezeNavDropdown,
+        BreezeInput,
+        BreezeCheckbox,
+        BreezeButton,
     },
 
     props: {
@@ -164,19 +82,13 @@ export default {
     },
 
     beforeCreate() {
-        // document.querySelector('body').setAttribute('class', '')
+        document.querySelector('body').setAttribute('class', 'text-sm accent-'+this.$page.props.admin.color)
     },
 
     created() {
 
     },
     computed: {
-        btnColor() {
-            return 'btn-'+this.$page.props.admin.color;
-        },
-        icheckColor() {
-            return 'icheck-'+this.$page.props.admin.color;
-        },
         cardColor() {
             return 'card-'+this.$page.props.admin.color;
         },
