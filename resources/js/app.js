@@ -23,9 +23,7 @@ createInertiaApp({
             messages, // 语言包
         });
 
-        const App = createApp({
-            render: () => h(app, props)
-        });
+        const App = createApp({render: () => h(app, props)});
         App.mixin({methods: {route: window.route}});
         App.use(plugin);
         App.use(i18n);

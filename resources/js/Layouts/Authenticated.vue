@@ -34,17 +34,17 @@
                         </form>
                     </div>
                 </li>
-                <breeze-nav-dropdown align="right">
+                <nav-dropdown align="right">
                     <template #trigger>
-                        {{ $t('language') }}
+                        <i class="fa fa-language fa-fw font-size-5" aria-hidden="true"></i>
                     </template>
                     <template #content>
                         <a href="#" class="dropdown-item" v-for="(object, lang) in $page.props.languages" @click="changeLang(lang)">
                             {{ object.language }}
                         </a>
                     </template>
-                </breeze-nav-dropdown>
-                <breeze-nav-dropdown align="right" width="lg">
+                </nav-dropdown>
+                <nav-dropdown align="right" width="lg">
                     <template #trigger>
                         {{ $page.props.auth.user.name }}
                     </template>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </template>
-                </breeze-nav-dropdown>
+                </nav-dropdown>
             </ul>
         </nav>
 
@@ -349,19 +349,19 @@
 </template>
 
 <script>
-import BreezeNavDropdown from "@/Components/NavDropdown";
+import NavDropdown from "@/Components/NavDropdown";
 // import BreezeApplicationLogo from '@/Components/ApplicationLogo'
 // import BreezeDropdown from '@/Components/Dropdown'
-// import BreezeDropdownLink from '@/Components/DropdownLink'
+import BreezeDropdownLink from '@/Components/DropdownLink'
 // import BreezeNavLink from '@/Components/NavLink'
 // import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
 
 export default {
     components: {
-        BreezeNavDropdown,
+        NavDropdown,
         // BreezeApplicationLogo,
         // BreezeDropdown,
-        // BreezeDropdownLink,
+        BreezeDropdownLink,
         // BreezeNavLink,
         // BreezeResponsiveNavLink,
     },
@@ -371,7 +371,7 @@ export default {
         }
     },
     beforeCreate() {
-        document.querySelector('body').setAttribute('class', 'sidebar-mini layout-fixed layout-navbar-fixed text-sm accent-'+this.$page.props.admin.color)
+        document.querySelector('body').setAttribute('class', 'sidebar-mini layout-fixed layout-navbar-fixed text-sm')
     },
     created() {
         console.dir(this.$page.props);

@@ -1,8 +1,6 @@
 <template>
-    <div :class="icheckColor">
-        <input type="checkbox" :id="getId" :value="value" name="remember" v-model="proxyChecked">
-        <label :for="getId">{{ label }}</label>
-    </div>
+    <input type="checkbox" :value="value" v-model="proxyChecked"
+           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 </template>
 
 <script>
@@ -10,15 +8,6 @@ export default {
     emits: ['update:checked'],
 
     props: {
-        id: {
-            type: String,
-            default: null,
-        },
-        name: String,
-        label: {
-            type: String,
-            default: null,
-        },
         checked: {
             type: [Array, Boolean],
             default: false,
@@ -37,12 +26,6 @@ export default {
             set(val) {
                 this.$emit("update:checked", val);
             },
-        },
-        getId() {
-            return this.id ?? this.name;
-        },
-        icheckColor() {
-            return 'icheck-'+this.$page.props.admin.color;
         },
     },
 }
