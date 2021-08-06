@@ -34,23 +34,24 @@
                         </form>
                     </div>
                 </li>
-                <nav-dropdown align="right">
+                <breeze-nav-dropdown align="right">
                     <template #trigger>
-                        <i class="fa fa-language fa-fw font-size-5" aria-hidden="true"></i>
+                        <i class="fas fa-globe fa-fw"></i>
+                        <span class="pl-1 d-none d-md-inline-block">{{ $t('language') }}</span>
                     </template>
                     <template #content>
                         <a href="#" class="dropdown-item" v-for="(object, lang) in $page.props.languages" @click="changeLang(lang)">
                             {{ object.language }}
                         </a>
                     </template>
-                </nav-dropdown>
-                <nav-dropdown align="right" width="lg">
+                </breeze-nav-dropdown>
+                <breeze-nav-dropdown align="right" width="lg" toggle="true">
                     <template #trigger>
-                        {{ $page.props.auth.user.name }}
+                        <span class="pl-1 d-none d-md-inline-block">{{ $page.props.auth.user.name }}</span>
                     </template>
                     <template #content>
-                        <div class="card card-primary card-outline mb-0">
-                            <div class="card-body box-profile">
+                        <breeze-card class="card-outline mb-0" body="box-profile">
+                            <template #body>
                                 <div class="text-center">
                                     <img class="profile-user-img img-fluid img-circle" :src="$page.props.auth.user.avatar" alt="User profile picture">
                                 </div>
@@ -62,17 +63,18 @@
                                 <div class="row mt-3">
                                     <div class="col">
                                         <inertia-link :href="route('logout')" method="post" as="button" class="btn btn-primary btn-block">
-                                            {{ $t('log_out') }}
+                                            <i class="fas fa-sign-out-alt fa-fw"></i>
+                                            <span class="pl-1 d-none d-md-inline-block">{{ $t('log_out') }}</span>
                                         </inertia-link>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </template>
+                        </breeze-card>
                     </template>
-                </nav-dropdown>
+                </breeze-nav-dropdown>
             </ul>
         </nav>
 
@@ -349,7 +351,8 @@
 </template>
 
 <script>
-import NavDropdown from "@/Components/NavDropdown";
+import BreezeNavDropdown from "@/Components/NavDropdown";
+import BreezeCard from "@/Components/Card"
 // import BreezeApplicationLogo from '@/Components/ApplicationLogo'
 // import BreezeDropdown from '@/Components/Dropdown'
 import BreezeDropdownLink from '@/Components/DropdownLink'
@@ -358,7 +361,8 @@ import BreezeDropdownLink from '@/Components/DropdownLink'
 
 export default {
     components: {
-        NavDropdown,
+        BreezeNavDropdown,
+        BreezeCard,
         // BreezeApplicationLogo,
         // BreezeDropdown,
         BreezeDropdownLink,

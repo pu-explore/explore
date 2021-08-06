@@ -5,9 +5,9 @@
 @import "icheck-bootstrap.css";
 @import "adminlte.css";
 
-.dropdown-menu {
-    display: inline;
-}
+/*.dropdown-menu {*/
+/*    display: inline;*/
+/*}*/
 
 .inset-0 {
     top: 0;
@@ -30,8 +30,4 @@
 
 .text-sm .wrapper .content-wrapper {
     min-height: calc(100vh - calc(2.95rem + 1px) - calc(2.95rem + 1px));
-}
-
-.font-size-5 {
-    font-size: 1.25rem!important;
 }

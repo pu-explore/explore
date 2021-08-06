@@ -1,15 +1,15 @@
 <template>
-    <li class="nav-item dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" @click="open = !open">
+    <li class="nav-item dropdown" :class="showClass">
+        <a href="#" data-toggle="dropdown" aria-haspopup="true" :aria-expanded="open" class="nav-link" :class="toggleClass" @click="open = !open">
             <slot name="trigger" />
         </a>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="position-fixed inset-0 z-40" @click="open = false"></div>
+        <div class="position-fixed inset-0 z-40" :class="open ? 'show' : 'd-none'" @click="open = false"></div>
 
-        <div v-show="open" class="dropdown-menu z-50" :class="[widthClass, alignClass]" style="display: none;" @click="open = false">
+        <ul class="dropdown-menu z-50" :class="[showClass, widthClass, alignClass]" @click="open = false">
             <slot name="content" />
-        </div>
+        </ul>
     </li>
 </template>
 
@@ -18,6 +18,9 @@ import { ref } from "vue";
 
 export default {
     props: {
+        toggle: {
+            default: false
+        },
         align: {
             default: ''
         },
@@ -35,12 +38,18 @@ export default {
     },
 
     computed: {
+        toggleClass() {
+            return this.toggle ? 'dropdown-toggle' : '';
+        },
+        showClass() {
+            return this.open ? 'show' : '';
+        },
         widthClass() {
             return this.width === 'lg' ? 'dropdown-menu-lg' : '';
         },
         alignClass() {
             return this.align === 'right' ? 'dropdown-menu-right' : '';
         }
-    }
+    },
 }
 </script>

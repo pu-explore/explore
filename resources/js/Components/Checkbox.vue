@@ -1,6 +1,8 @@
 <template>
-    <input type="checkbox" :value="value" v-model="proxyChecked"
-           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+    <div :class="icheckColor">
+        <input type="checkbox" :id="unique_id" :name="name" :value="value" v-model="proxyChecked">
+        <label :for="unique_id" v-if="label">{{ label }}</label>
+    </div>
 </template>
 
 <script>
@@ -8,6 +10,18 @@ export default {
     emits: ['update:checked'],
 
     props: {
+        label: {
+            type: String,
+            default: null
+        },
+        id: {
+            type: String,
+            default: null
+        },
+        name: {
+            type: String,
+            default: null
+        },
         checked: {
             type: [Array, Boolean],
             default: false,
@@ -18,6 +32,12 @@ export default {
     },
 
     computed: {
+        unique_id() {
+            return this.id ?? this.name;
+        },
+        icheckColor() {
+            return 'icheck-'+this.$page.props.admin.color;
+        },
         proxyChecked: {
             get() {
                 return this.checked;
